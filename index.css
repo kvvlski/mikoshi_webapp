@@ -1,0 +1,48 @@
+body {
+    --bg-color: var(--tg-theme-bg-color, #fff);
+    font-family: sans-serif;
+    background-color: var(--bg-color);
+    color: var(--tg-theme-text-color, #222);
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    color-scheme: var(--tg-color-scheme);
+}
+body.gray {
+    background-color: var(--tg-theme-secondary-bg-color, #efefef);
+}
+
+a {
+    color: var(--tg-theme-link-color, #2678b6);
+}
+
+div.grid {
+    display: -moz-inline-grid;
+    margin: 0.75em;
+}
+
+div.button {
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+    width: 10em;
+    height: 1.5em;
+    margin: 0.5em;
+    padding: 5em 1em;
+    border: #2678b6 solid 1px;
+    border-radius: 4px;
+    background-color: var(--tg-theme-button-color, #50a8eb);
+    color: var(--tg-theme-button-text-color, #ffffff);
+}
+/* 
+button {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    margin: 15px 0;
+    padding: 12px 20px;
+    border: #2678b6 solid 1px;
+    border-radius: 4px;
+    background-color: var(--tg-theme-button-color, #50a8eb);
+    color: var(--tg-theme-button-text-color, #ffffff);
+} */
