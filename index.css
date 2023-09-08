@@ -23,7 +23,7 @@ a {
 }
 .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     grid-gap: 0.5em;
     left: auto;
     right: auto;
@@ -41,20 +41,20 @@ a {
 }
   
 #footer {
-    position: relative; 
+    display: block;
+    position: fixed; 
     width: 100%;
     bottom: 0;
 }
   
 .footer-button {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     box-shadow: 0 -2vh 30px 1px rgba(0, 0, 0, 0.2);
     border: none;
     border-radius: none;
-    
     font-size: 28px;
     padding: 10px;;
     text-align: center;
