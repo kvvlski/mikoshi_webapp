@@ -1,3 +1,7 @@
+:root {
+    --tg-theme-button-color-darker: color-mix(in srgb,var(--tg-theme-button-color, #50a8eb),#000 15%);
+}
+
 body {
     --bg-color: var(--tg-theme-bg-color, #fff);
     font-family: sans-serif;
@@ -17,19 +21,22 @@ a {
 }
 
 div.grid {
-    display: -moz-inline-grid;
-    margin: 0.75em;
+    display: grid;
+    grid-template-columns: 50vw auto;
+    grid-gap: 1em;
+    padding: 1em;
+    height: 50vh;
 }
 
 div.button {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
     text-align: center;
     font-size: 14px;
-    width: 10em;
-    height: 1.5em;
-    margin: 0.5em;
-    padding: 5em 1em;
-    border: #2678b6 solid 1px;
+    /* margin: 0.5em 0; */
+    padding: 1em 0;
+    border: var(--tg-theme-button-color-darker) solid 1px;
     border-radius: 4px;
     background-color: var(--tg-theme-button-color, #50a8eb);
     color: var(--tg-theme-button-text-color, #ffffff);
