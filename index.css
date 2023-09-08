@@ -1,5 +1,6 @@
 :root {
     --tg-theme-button-color-darker: color-mix(in srgb,var(--tg-theme-button-color, #50a8eb),#000 15%);
+    --tg-theme-button-color-lighter: color-mix(in srgb,var(--tg-theme-button-color, #50a8eb), #fff 15%);
 }
 
 body {
@@ -12,6 +13,7 @@ body {
     padding: 0;
     color-scheme: var(--tg-color-scheme);
 }
+
 body.gray {
     background-color: var(--tg-theme-secondary-bg-color, #efefef);
 }
@@ -19,37 +21,39 @@ body.gray {
 a {
     color: var(--tg-theme-link-color, #2678b6);
 }
-
-div.grid {
+.grid {
     display: grid;
-    grid-template-columns: 50vw 50vw;
-    grid-gap: 0;
-    padding: 0em;
-    height: 50vh;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.5em;
+    left: auto;
+    right: auto;
+    padding: 0.5em;
 }
-
-div.button {
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    text-align: center;
+  
+.button {
     font-size: 28px;
-    /* margin: 0.5em 0; */
-    padding: 1em 0;
+    padding: 10px;
+    text-align: center;
     border: var(--tg-theme-button-color-darker) solid 0.1em;
-    border-radius: 0;
+    border-radius: 0.3em;
     background-color: var(--tg-theme-button-color, #50a8eb);
-    color: var(--tg-theme-button-text-color, #ffffff);
+    color: var(--tg-theme-button-text-color, #ffffff); 
 }
-/* 
-button {
-    display: block;
+  
+#footer {
+    position: relative; 
     width: 100%;
-    font-size: 14px;
-    margin: 15px 0;
-    padding: 12px 20px;
-    border: #2678b6 solid 1px;
-    border-radius: 4px;
-    background-color: var(--tg-theme-button-color, #50a8eb);
-    color: var(--tg-theme-button-text-color, #ffffff);
-} */
+    bottom: 0;
+}
+  
+#footer div.button {
+    position: fixed;
+    bottom: -4em;
+    left: -0.1em;
+    right: -0.1em;
+    box-shadow: 0 -1em 5em 0.1em rgba(0, 0, 0, 0.2);
+    border: var(--tg-theme-button-color) solid 0.5em;
+    border-radius: 2em;
+    padding: 0.75em 0 0.75em 0;
+    height: 5em;
+}
