@@ -8,7 +8,7 @@ body {
     font-family: sans-serif;
     background-color: var(--bg-color);
     color: var(--tg-theme-text-color, #222);
-    font-size: 14px;
+    font-size: 18px;
     margin: 0;
     padding: 0;
     color-scheme: var(--tg-color-scheme);
@@ -23,27 +23,89 @@ a {
 }
 .grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 0.5em;
     left: auto;
     right: auto;
     padding: 0.5em;
 }
-  
+ 
+
+@-moz-keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+    }
+    @-webkit-keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+    }
+    @keyframes marquee {
+    0% { 
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%) }
+    100% { 
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%); }
+    }
+
+.item {
+    border: var(--tg-theme-button-color-darker) solid 0.1em;
+    border-radius: 0.3em;
+    color: var(--tg-theme-button-text-color, #fff); 
+    height: 25vh;
+    overflow-y: scroll;
+    transition: 0.3s;
+}
+
+.item:hover {
+    border-color: var(--tg-theme-button-color-lighter);
+    transition: 0.3s;
+}
+
+.item:hover .title-wrapper {
+    background-color: var(--tg-theme-button-color-lighter);
+    transition: 0.3s;
+}
+
+.item .content {
+    padding: 1vh;
+    font-size: 0.8em;
+    color: var(--tg-theme-button-text-color, #000);
+}
+
+.item .title-wrapper {
+    background-color: var(--tg-theme-button-color);
+    width: 100%;
+    display: block;
+    height: 1.2em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    transition: 0.3s;
+}
+
 .button {
-    font-size: 28px;
     padding: 10px;
     text-align: center;
     border: var(--tg-theme-button-color-darker) solid 0.1em;
     border-radius: 0.3em;
     background-color: var(--tg-theme-button-color, #50a8eb);
     color: var(--tg-theme-button-text-color, #ffffff); 
+    transition: 0.3s;
 }
   
+.button:hover {
+    background-color: var(--tg-theme-button-color-lighter);
+    transition: 0.3s;
+}
+
 #footer {
     display: block;
     position: fixed; 
     width: 100%;
+    left: 0;
     bottom: 0;
 }
   
@@ -55,7 +117,7 @@ a {
     box-shadow: 0 -2vh 30px 1px rgba(0, 0, 0, 0.2);
     border: none;
     border-radius: none;
-    font-size: 28px;
+    font-size: 18px;
     padding: 10px;;
     text-align: center;
     background-color: var(--tg-theme-button-color, #50a8eb);
