@@ -6,7 +6,7 @@ setThemeClass();
 
 function addReplicas(replicas) {
     replicas.forEach(element => {
-        $('.grid').append(`
+        $(`
         <div class="item">
             <div class="title-wrapper">
                 ${element.title}
@@ -15,7 +15,7 @@ function addReplicas(replicas) {
                 ${element.content}
             </div>
         </div>
-        `)
+        `).insertBefore('#pointer')
     });
 }
 
@@ -24,36 +24,10 @@ function newCharacter() {
     if (text == null || text == "") {
         return;
     }
-    addReplicas([{title: text, content: '...'}])
+    addReplicas([{title: text, content: '   '}])
 }
 
 $(document).ready(function() {
-    addReplicas([
-       { 
-        title: "Владимир Путин",
-        content: "TEST CONTENT"
-       }, 
-       { 
-        title: "Владимир Жириновский",
-        content: "TEST CONTENT"
-       }, 
-       { 
-        title: "product manager",
-        content: "TEST CONTENT"
-       }, 
-       { 
-        title: "Lil peep",
-        content: "TEST CONTENT"
-       }, 
-       { 
-        title: "Паша Техник",
-        content: "TEST CONTENT"
-       }, 
-       { 
-        title: "Product Manager",
-        content: "TEST CONTENT"
-       }
-    ])
     var overflown = [];
     $(".title-wrapper").each(function(){
         console.log($(this).html().length)
