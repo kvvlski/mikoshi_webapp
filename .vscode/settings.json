@@ -6,5 +6,5 @@
         "key": "C:/Users/kovvalski/localhost+100-key.pem", //full path of the private key 
     },
     "liveServer.settings.multiRootWorkspaceName": "mikoshi_webapp",
-    "liveServer.settings.host": "192.168.0.103"
+    "liveServer.settings.host": "192.168.0.115"
 }

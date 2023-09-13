@@ -4,28 +4,53 @@ document.documentElement.className = Telegram.WebApp.colorScheme;
 Telegram.WebApp.onEvent('themeChanged', setThemeClass);
 setThemeClass();
 
+var lc = {
+    'ru': {
+        newCharacter: 'Новый персонаж'
+    }
+};
+
 function addReplicas(replicas) {
-    replicas.forEach(element => {
-        $(`
-        <div class="item">
-            <div class="title-wrapper">
-                ${element.title}
+    for (const key in replicas) {
+        if (Object.hasOwnProperty.call(replicas, key)) 
+        {
+            const element = replicas[key];
+
+            $('.grid').prepend(`
+            <div id="${key}" class="item">
+                <div class="title-wrapper">
+                    ${element.shortName}
+                </div>
+                <div class="content">
+                    ${element.history}
+                </div>
             </div>
-            <div class="content">
-                ${element.content}
-            </div>
-        </div>
-        `).insertBefore('#pointer')
-    });
+            `)
+        }
+    }
 }
 
 function newCharacter() {
-    let text = prompt("Character name:", "Harry Potter");
+    var text = $('#name')[0].value;
     if (text == null || text == "") {
         return;
     }
-    addReplicas([{title: text, content: '   '}])
+    fetch(`http://localhost:5050/replicas?userid=${uid}&name=${text}`,
+    {
+        method: 'POST'
+    }).then(response => console.log(response));
+    addReplicas([{shortName: text, history: []}]);
+    $.modal.close();
+    return text;
 }
+
+var uid;
+
+$(document).on('keypress',function(e) {
+    if(e.which == 13) {
+        newCharacter();
+    }
+});
 
 $(document).ready(function() {
     var overflown = [];
@@ -47,4 +72,29 @@ $(document).ready(function() {
             duplicated: true
         }); 
     });
+   
+    var WebApp = window.Telegram.WebApp;
+    if (WebApp.initDataUnsafe.hasOwnProperty('user'))
+    {
+        uid = WebApp.initDataUnsafe.user.id;
+        fetch(`http://localhost:5050/replicas?userid=${uid}`)
+            .then(data => data.json())
+            .then(json => {
+                addReplicas(json.replicas);
+        });
+
+        var lang = WebApp.initDataUnsafe.user.language_code;
+        if (lang) $('.footer-button').text(lc[lang].newCharacter);
+        $(document).on('click', '.item', function(e) {
+            var id = e.target.id;
+            console.log(id)
+            fetch(`http://localhost:5050/select?userid=${uid}&id=${id}`,
+            {
+                method: 'POST'
+            }).then(response => console.log(response));
+        });
+    } else {
+        $('#footer').remove();
+    }
+    WebApp.ready();
 });

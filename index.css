@@ -1,13 +1,18 @@
 :root {
     --tg-theme-button-color-darker: color-mix(in srgb,var(--tg-theme-button-color, #50a8eb),#000 15%);
     --tg-theme-button-color-lighter: color-mix(in srgb,var(--tg-theme-button-color, #50a8eb), #fff 15%);
+    --bg-color: var(--tg-theme-bg-color, #fff);
+    --text-color: var(--tg-theme-text-color, #222);
+    --secondary-bg-color: var(--tg-theme-secondary-bg-color, #efefef);
+    --link-color: var(--tg-theme-link-color, #2678b6);
+    --button-color: var(--tg-theme-button-color, #50a8eb);
+    --button-text-color: var(--tg-theme-button-text-color, #fff)
 }
 
 body {
-    --bg-color: var(--tg-theme-bg-color, #fff);
     font-family: sans-serif;
     background-color: var(--bg-color);
-    color: var(--tg-theme-text-color, #222);
+    color: var(--text-color);
     font-size: 18px;
     margin: 0;
     padding: 0;
@@ -15,12 +20,13 @@ body {
 }
 
 body.gray {
-    background-color: var(--tg-theme-secondary-bg-color, #efefef);
+    background-color: var(--secondary-bg-color);
 }
 
 a {
-    color: var(--tg-theme-link-color, #2678b6);
+    color: var(--link-color);
 }
+
 .grid {
     display: grid;
     position: relative;
@@ -35,7 +41,6 @@ a {
 .item {
     border: var(--tg-theme-button-color-darker) solid 0.1em;
     border-radius: 0.3em;
-    color: var(--tg-theme-button-text-color, #fff); 
     height: 25vh;
     overflow-y: scroll;
     transition: 0.3s;
@@ -54,11 +59,12 @@ a {
 .item .content {
     padding: 1vh;
     font-size: 0.8em;
-    color: var(--tg-theme-button-text-color, #000);
+    color: var(--text-color)
 }
 
 .item .title-wrapper {
-    background-color: var(--tg-theme-button-color);
+    background-color: var(--button-color);
+    color: var(--text-color); 
     width: 100%;
     display: block;
     height: 1.2em;
@@ -73,8 +79,8 @@ a {
     text-align: center;
     border: var(--tg-theme-button-color-darker) solid 0.1em;
     border-radius: 0.3em;
-    background-color: var(--tg-theme-button-color, #50a8eb);
-    color: var(--tg-theme-button-text-color, #ffffff); 
+    background-color: var(--button-color);
+    color: var(--button-text-color); 
     transition: 0.3s;
 }
   
@@ -92,6 +98,7 @@ a {
 }
   
 .footer-button {
+    text-decoration: none;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -104,6 +111,85 @@ a {
     text-align: center;
     background-color: var(--tg-theme-button-color, #50a8eb);
     color: var(--tg-theme-button-text-color, #ffffff); 
+    transition: 0.3s;
     /* padding: 0.4em 0 1em 0; */
     /* height: 50vh; */
+}
+
+.footer-button:hover {
+    background-color: var(--tg-theme-button-color-lighter);
+}
+
+.form {
+    --width-of-input: 100%;
+    --border-height: 1px;
+    --border-before-color: rgba(221, 221, 221, 0.39);
+    --border-after-color: var(--button-color);
+    --input-hovered-color: var(--secondary-bg-color);
+    position: relative;
+    width: var(--width-of-input);
+    display: flex;
+}
+/* styling of Input */
+.input {
+    color: var(--tg-theme-text-color, #000);
+    font-size: 0.9rem;
+    background-color: transparent;
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 0.5em;
+    padding-block: 0.7em;
+    border: none;
+    border-bottom: var(--border-height) solid var(--border-before-color);
+    transition: 0.3s;
+}
+/* styling of animated border */
+.input-border {
+    position: absolute;
+    background: var(--border-after-color);
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+}
+/* Hover on Input */
+input:hover {
+    background: var(--input-hovered-color);
+}
+
+input:focus {
+    outline: none;
+}
+/* here is code of animated border */
+input:focus ~ .input-border {
+    width: 100%;
+}
+/* === if you want to do animated border on typing === */
+/* remove input:focus code and uncomment below code */
+/* input:valid ~ .input-border{
+    width: 100%;
+} */
+
+.modal-button {
+    padding: 10px;
+    font-size: 12px;
+    position: relative;
+    display: inline;
+    text-decoration: none;
+    text-align: center;
+    border: var(--tg-theme-button-color-darker) solid 0.1em;
+    border-radius: 0.3em;
+    background-color: var(--button-color);
+    color: var(--button-text-color); 
+    transition: 0.3s;
+}
+  
+.modal-button:hover {
+    background-color: var(--tg-theme-button-color-lighter);
+    transition: 0.3s;
+}
+
+.modal {
+    background-color: var(--bg-color);
 }
