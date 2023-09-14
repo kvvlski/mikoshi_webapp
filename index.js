@@ -35,7 +35,7 @@ function newCharacter() {
     if (text == null || text == "") {
         return;
     }
-    fetch(`http://45.87.247.127:5050/replicas?userid=${uid}&name=${text}`,
+    fetch(`https://45.87.247.127:5050/replicas?userid=${uid}&name=${text}`,
     {
         method: 'POST'
     }).then(response => console.log(response));
@@ -77,7 +77,7 @@ $(document).ready(function() {
     if (WebApp.initDataUnsafe.hasOwnProperty('user'))
     {
         uid = WebApp.initDataUnsafe.user.id;
-        fetch(`http://45.87.247.127:5050/replicas?userid=${uid}`)
+        fetch(`https://45.87.247.127:5050/replicas?userid=${uid}`)
             .then(data => data.json())
             .then(json => {
                 addReplicas(json.replicas);
@@ -88,7 +88,7 @@ $(document).ready(function() {
         $(document).on('click', '.item', function(e) {
             var id = e.target.id;
             console.log(id)
-            fetch(`http://45.87.247.127:5050/select?userid=${uid}&id=${id}`,
+            fetch(`https://45.87.247.127:5050/select?userid=${uid}&id=${id}`,
             {
                 method: 'POST'
             }).then(response => console.log(response));
