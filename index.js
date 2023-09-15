@@ -18,7 +18,7 @@ function addReplicas(replicas) {
 
             var content = "-"
             if (element.history !== Array(0))
-                content = element.history[-1]['content']
+                content = element.history.slice(-1)['content']
             else if (element.comment !== '')
                 content = element.comment
 
