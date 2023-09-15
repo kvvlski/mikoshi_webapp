@@ -16,6 +16,12 @@ function addReplicas(replicas) {
         {
             const element = replicas[key];
 
+            var content = "-"
+            if (element.history)
+                content = element.history[-1]['content']
+            else if (element.comment)
+                content = element.comment
+
             $('.grid').prepend(`
             <div id="${key}" class="item">
                 <div class="title-wrapper">
