@@ -17,9 +17,9 @@ function addReplicas(replicas) {
             const element = replicas[key];
 
             var content = "-"
-            if (element.history)
+            if (element.history !== Array(0))
                 content = element.history[-1]['content']
-            else if (element.comment)
+            else if (element.comment !== '')
                 content = element.comment
 
             $('.grid').prepend(`
