@@ -83,7 +83,7 @@ $(document).ready(function() {
     if (WebApp.initDataUnsafe.hasOwnProperty('user'))
     {
         uid = WebApp.initDataUnsafe.user.id;
-        fetch(`https://45.87.247.127:5050/replicas?userid=${uid}`)
+        fetch(`https://mikoshibot.ru/replicas?userid=${uid}`)
             .then(data => data.json())
             .then(json => {
                 addReplicas(json.replicas);
