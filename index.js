@@ -41,7 +41,7 @@ function newCharacter() {
     if (text == null || text == "") {
         return;
     }
-    fetch(`https://45.87.247.127:5050/replicas?userid=${uid}&name=${text}`,
+    fetch(`https://mikoshibot.ru/replicas?userid=${uid}&name=${text}`,
     {
         method: 'POST'
     }).then(response => console.log(response));
@@ -94,7 +94,7 @@ $(document).ready(function() {
         $(document).on('click', '.item', function(e) {
             var id = e.target.id;
             console.log(id)
-            fetch(`https://45.87.247.127:5050/select?userid=${uid}&id=${id}`,
+            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}`,
             {
                 method: 'POST'
             }).then(response => console.log(response));
