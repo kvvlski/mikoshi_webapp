@@ -23,7 +23,7 @@ function addReplicas(replicas) {
                 content = element.comment
 
             $('.grid').prepend(`
-            <div id="${key}" class="item">
+            <div id="${key}" voice="${element.voice}" class="item">
                 <div class="title-wrapper">
                     ${element.shortName}
                 </div>
@@ -93,8 +93,9 @@ $(document).ready(function() {
         if (lang) $('.footer-button').text(lc[lang].newCharacter);
         $(document).on('click', '.item', function(e) {
             var id = e.target.id;
+            var voice = e.target.voice
             console.log(id)
-            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}`,
+            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}&voice=${voice}`,
             {
                 method: 'POST'
             }).then(response => console.log(response));
