@@ -118,6 +118,7 @@ $(document).ready(function() {
 
         var lang = WebApp.initDataUnsafe.user.language_code;
         if (lang) $('.footer-button').text(lc[lang].newCharacter);
+        if (lang) $('#ptemp').text(lc[lang].temperature);
         $(document).on('click', '.item', function(e) {
             var id = e.target.id;
             var voice = e.target.getAttribute('voice')
