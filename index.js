@@ -46,13 +46,12 @@ function addScenarios() {
         for (const key in data) {
             if (Object.hasOwnProperty.call(data, key)) {
                 const element = data[key];
-                var id = element.id || key;
                 $('.gallery').prepend(`
-                <div id="${id}" class="item">
+                <div id="${key}" class="item">
                     <div class="title-wrapper">
                         ${element.name}
                     </div>
-                    <img src=${element.image}/>
+                    <img src=${element.image}>
                     <div class="content">
                         ${element.comment}
                     </div>
@@ -128,14 +127,9 @@ $(document).ready(function() {
                 method: 'POST'
             }).then(response => console.log(response));
         });
-        addScenarios([
-            {
-                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZddaZ2Gc9_egIdxY6h5nu07EanL6ltBoaEA&usqp=CAU',
-                name: 'Владимир Жириновский',
-                voice: 'KQQwZ3mR5JJf4m6RhEaW',
-                comment: 'Известная политическая фигура с яркой и эксцентричной личностью. Владимир Жириновский - политик с многолетним опытом, готовый обсудить актуальные политические темы и поделиться своими точками зрения на события в мире. Будьте готовы к живой и страстной дискуссии!'
-            }
-        ])
+        fetch(`https://mikoshibot.ru/scenarios`)
+        .then(response => response.json())
+        .then(data => addScenarios(data));
         $(".title-wrapper").each(function(){
             console.log($(this));
             if ($(this).html().length > 45) overflown.push($(this))
