@@ -22,18 +22,45 @@ function addReplicas(replicas) {
             else if (element.comment !== '')
                 content = element.comment
 
+            var id = element.id || key;
+            var image = element.image || ''
+
+            if (image) image = `<img src=${image}/>`
+
             $('.grid').prepend(`
-            <div id="${key}" voice="${element.voice}" class="item">
+            <div id="${id}" class="item">
                 <div class="title-wrapper">
                     ${element.shortName}
-                </div>
+                </div>${image}
                 <div class="content">
-                    ${element.history}
+                    ${content}
                 </div>
             </div>
             `)
         }
     }
+}
+
+function addScenarios() {
+    fetch(`https://mikoshibot.ru/scenarios`).then(response => response.json()).then(data => {
+        for (const key in data) {
+            if (Object.hasOwnProperty.call(data, key)) {
+                const element = data[key];
+                var id = element.id || key;
+                $('.gallery').prepend(`
+                <div id="${id}" class="item">
+                    <div class="title-wrapper">
+                        ${element.name}
+                    </div>
+                    <img src=${element.image}/>
+                    <div class="content">
+                        ${element.comment}
+                    </div>
+                </div>
+                `)
+            }
+        }
+    })
 }
 
 function newCharacter() {
@@ -44,8 +71,12 @@ function newCharacter() {
     fetch(`https://mikoshibot.ru/replicas?userid=${uid}&name=${text}`,
     {
         method: 'POST'
-    }).then(response => console.log(response));
-    addReplicas([{shortName: text, history: []}]);
+    }).then(response =>
+        response.json().then(
+            data => addReplicas([data])
+        )
+    )
+    // addReplicas([]);
     $.modal.close();
     return text;
 }
@@ -58,27 +89,24 @@ $(document).on('keypress',function(e) {
     }
 });
 
+var pshown = false;
+var overflown = [];
 $(document).ready(function() {
-    var overflown = [];
-    $(".title-wrapper").each(function(){
-        console.log($(this).html().length)
-        if ($(this).html().length > 45) overflown.push($(this))
-    });
-    overflown.forEach(element => {
-        element.marquee({
-            //duration in milliseconds of the marquee
-            duration: 10000,
-            //gap in pixels between the tickers
-            gap: 50,
-            //time in milliseconds before the marquee will start animating
-            delayBeforeStart: 0,
-            //'left' or 'right'
-            direction: 'left',
-            //true or false - should the marquee be duplicated to show an effect of continues flow
-            duplicated: true
-        }); 
-    });
-   
+    $('.settings-button').on('click', function() {
+        if (!pshown) $('#popup').css({
+            bottom: '0px',
+        })
+        else $('#popup').css({
+            bottom: '-1000px',
+        })
+        pshown = !pshown;
+    })
+    
+
+    $('#temp').on('change', function() {
+        console.log($(this).val())
+    })
+
     var WebApp = window.Telegram.WebApp;
     if (WebApp.initDataUnsafe.hasOwnProperty('user'))
     {
@@ -93,15 +121,43 @@ $(document).ready(function() {
         if (lang) $('.footer-button').text(lc[lang].newCharacter);
         $(document).on('click', '.item', function(e) {
             var id = e.target.id;
-            var voice = e.target.voice
-            console.log(id)
+            var voice = e.target.getAttribute('voice')
+            console.log(e.target)
             fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}&voice=${voice}`,
             {
                 method: 'POST'
             }).then(response => console.log(response));
         });
+        addScenarios([
+            {
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZddaZ2Gc9_egIdxY6h5nu07EanL6ltBoaEA&usqp=CAU',
+                name: 'Владимир Жириновский',
+                voice: 'KQQwZ3mR5JJf4m6RhEaW',
+                comment: 'Известная политическая фигура с яркой и эксцентричной личностью. Владимир Жириновский - политик с многолетним опытом, готовый обсудить актуальные политические темы и поделиться своими точками зрения на события в мире. Будьте готовы к живой и страстной дискуссии!'
+            }
+        ])
+        $(".title-wrapper").each(function(){
+            console.log($(this));
+            if ($(this).html().length > 45) overflown.push($(this))
+        });
+        overflown.forEach(element => {
+            element.marquee({
+                //duration in milliseconds of the marquee
+                duration: 10000,
+                //gap in pixels between the tickers
+                gap: 50,
+                //time in milliseconds before the marquee will start animating
+                delayBeforeStart: 0,
+                //'left' or 'right'
+                direction: 'left',
+                //true or false - should the marquee be duplicated to show an effect of continues flow
+                duplicated: true
+            }); 
+        });
+       
     } else {
         $('#footer').remove();
     }
+    
     WebApp.ready();
 });

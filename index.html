@@ -28,9 +28,18 @@
             <button class="modal-button" onclick="newCharacter()">OK</button>
         </div>
     </div>
-    
+    <div class="gallery"></div>
     <div class="grid"></div>
+    <div id="popup">
+        <div class="slidecontainer">
+            <p id="ptemp">Temperature</p>
+            <input type="range" min="0" max="100" value="70" class="slider" id="temp">
+        </div>
+    </div>
     <div id="footer">
+        <div class="settings-button">
+            <img class="icon" src="setting.png"/>
+        </div>
         <a href="#ex1" rel="modal:open" class="footer-button">New character</a>
     </div>
     <div class="viewport-border"></div>

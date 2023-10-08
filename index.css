@@ -42,6 +42,7 @@ a {
     border: var(--tg-theme-button-color-darker) solid 0.1em;
     border-radius: 0.3em;
     height: 25vh;
+    overflow-x: hidden;
     overflow-y: scroll;
     transition: 0.3s;
 }
@@ -57,6 +58,7 @@ a {
 }
 
 .item .content {
+    z-index: -1;
     padding: 1vh;
     font-size: 0.8em;
     color: var(--text-color)
@@ -72,6 +74,41 @@ a {
     white-space: nowrap;
     text-align: center;
     transition: 0.3s;
+}
+
+@keyframes fade_in_show {
+    0% {
+         opacity: 1;
+         transform: scale(1)
+    }
+
+    100% {
+         opacity: 0;
+         transform: scale(0)
+    }
+}
+
+.item {
+    position: relative;
+}
+
+.item .content ~ img{
+    display: none;
+    position: absolute;
+}
+
+.item img {
+    position: absolute;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.item:hover img {
+    opacity: 0;
+} 
+
+.item:hover .content {
+    display: block;
 }
 
 .button {
@@ -107,7 +144,7 @@ a {
     border: none;
     border-radius: none;
     font-size: 18px;
-    padding: 10px;;
+    padding: 10px;
     text-align: center;
     background-color: var(--tg-theme-button-color, #50a8eb);
     color: var(--tg-theme-button-text-color, #ffffff); 
@@ -192,4 +229,97 @@ input:focus ~ .input-border {
 
 .modal {
     background-color: var(--bg-color);
+}
+
+.gallery {
+    overflow: auto;
+    /* background-color: var(--secondary-bg-color); */
+    white-space: nowrap;
+    padding: 0 10px;
+}
+
+.gallery .item {
+    display: inline-block; 
+    width: 50%;
+    text-wrap: wrap;
+}
+
+* {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+*::-webkit-scrollbar {
+    /* Works on Chrome, Edge, and Safari */
+    display: none;
+}
+
+.icon {
+    position: absolute;
+    filter: invert(1);
+    transition: 0.3s;
+    padding: 10px;
+    height: 100%;
+    bottom: 0;
+}
+
+.icon:hover {
+    filter: invert(0.1);
+}
+
+.settings-button {
+    display: block;
+    width: 21px;
+    height: 21px;
+    margin: 0;
+    z-index: 2;
+    border-right: 1px solid var(--tg-theme-button-color-darker);
+}
+
+#footer {
+    z-index: 100;
+    display: flex;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+  
+.footer-button {
+    text-decoration: none;
+    bottom: 0;
+    box-shadow: 0 -2vh 30px 1px rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: none;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--tg-theme-button-color, #50a8eb);
+    color: var(--tg-theme-button-text-color, #ffffff);
+    transition: 0.3s;
+}
+  
+.footer-button:hover {
+    background-color: var(--tg-theme-button-color-lighter);
+}
+  
+.slidecontainer {
+    display: inline-flex;
+    width: 100%;
+    padding: .5em;
+}
+.slidecontainer p {
+    padding: .5em;
+}
+.slider {
+    width: 98%;
+} 
+#popup {
+    z-index: 1;
+    background-color: var(--bg-color);
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    bottom: -1000px;
+    transition: 0.3s;
 }
