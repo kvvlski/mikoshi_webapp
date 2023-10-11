@@ -58,7 +58,7 @@ a {
 }
 
 .item .content {
-    z-index: -1;
+    /* z-index: 1; */
     padding: 1vh;
     font-size: 0.8em;
     color: var(--text-color)
@@ -97,14 +97,23 @@ a {
 }
 
 .item img {
+    filter: blur(1px) brightness(80%);
+    z-index: -1;
+    /* height: 100%; */
     position: absolute !important;
-    width: 100%;
     transition: 0.3s;
 }
 
-.item:hover img {
+@media (hover: hover) {
+    .item img {
+        width: 100%;
+        transform: translateY(-30%) scale(1.2);
+    }
+}
+
+/* .item:hover img {
     opacity: 0;
-} 
+}  */
 
 .item:hover .content {
     display: block;

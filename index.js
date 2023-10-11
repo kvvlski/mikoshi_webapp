@@ -48,7 +48,7 @@ function addScenarios() {
             if (Object.hasOwnProperty.call(data, key)) {
                 const element = data[key];
                 $('.gallery').prepend(`
-                <div id="${key}" class="item">
+                <div id="-${key}" class="item">
                     <div class="title-wrapper">
                         ${element.name}
                     </div>
@@ -56,7 +56,7 @@ function addScenarios() {
                     <div class="content">
                         ${element.comment}
                     </div>
-                </div>
+                    </div>
                 `)
             }
         }
@@ -123,13 +123,18 @@ $(document).ready(function() {
         if (lang) $('.footer-button').text(lc[lang].newCharacter);
         if (lang) $('#ptemp').text(lc[lang].temperature);
         $(document).on('click', '.item', function(e) {
-            var id = e.target.id;
-            var voice = e.target.getAttribute('voice')
-            console.log(e.target)
-            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}&voice=${voice}`,
+            if (e.target.parentElement && 
+            e.target.parentElement.className == 'item')
+            {
+                var id = e.target.parentElement.id;
+            } else var id = e.target.id;
+            console.log(e.target);
+            console.log(e.target.parentElement.className);
+            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}`,
             {
                 method: 'POST'
-            }).then(response => console.log(response));
+            }).then(response => response.json())
+            .then(data => console.log(data));
         });
         fetch(`https://mikoshibot.ru/scenarios`)
         .then(response => response.json())
