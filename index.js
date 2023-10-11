@@ -104,7 +104,9 @@ $(document).ready(function() {
     
 
     $('#temp').on('change', function() {
-        console.log($(this).val())
+        var val = $(this).val() / 100;
+        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=temperature&value=${val}`,
+        {method: 'POST'});
     })
 
     var WebApp = window.Telegram.WebApp;

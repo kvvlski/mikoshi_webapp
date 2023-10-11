@@ -93,12 +93,11 @@ a {
 }
 
 .item .content ~ img{
-    display: none;
     position: absolute;
 }
 
 .item img {
-    position: absolute;
+    position: absolute !important;
     width: 100%;
     transition: 0.3s;
 }
