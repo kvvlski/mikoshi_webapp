@@ -126,15 +126,16 @@ $(document).ready(function() {
             if (e.target.parentElement && 
             e.target.parentElement.className == 'item')
             {
-                var id = e.target.parentElement.id;
-            } else var id = e.target.id;
-            console.log(e.target);
-            console.log(e.target.parentElement.className);
-            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}`,
+                var el = e.target.parentElement
+            } else var el = e.target;
+            var id = el.id;
+            var name = el.querySelector('.title-wrapper').innerHTML;
+            console.log(id);
+            console.log(name);
+            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}&name=${name}`,
             {
                 method: 'POST'
-            }).then(response => response.json())
-            .then(data => console.log(data));
+            }).then(data => console.log(data));
         });
         fetch(`https://mikoshibot.ru/scenarios`)
         .then(response => response.json())
