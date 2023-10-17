@@ -1,10 +1,10 @@
 {  
-    "liveServer.settings.https":   
-    {
-        "enable": true, //set it true to enable the feature.  
-        "cert": "C:/Users/kovvalski/localhost+100.pem", //full path of the certificate  
-        "key": "C:/Users/kovvalski/localhost+100-key.pem", //full path of the private key 
-    },
+    // "liveServer.settings.https":   
+    // {
+    //     "enable": true, //set it true to enable the feature.  
+    //     "cert": "C:/Users/kovvalski/localhost+100.pem", //full path of the certificate  
+    //     "key": "C:/Users/kovvalski/localhost+100-key.pem", //full path of the private key 
+    // },
     "liveServer.settings.multiRootWorkspaceName": "mikoshi_webapp",
     "liveServer.settings.host": "127.0.0.1"
 }

@@ -118,6 +118,7 @@ $(document).ready(function() {
             .then(json => {
                 addReplicas(json.replicas);
         });
+        addScenarios();
 
         var lang = WebApp.initDataUnsafe.user.language_code;
         if (lang) $('.footer-button').text(lc[lang].newCharacter);
@@ -127,18 +128,20 @@ $(document).ready(function() {
             e.target.parentElement.className == 'item')
             {
                 var id = e.target.parentElement.id;
-            } else var id = e.target.id;
+                var name = e.target.parentElement.querySelector('.title-wrapper').innerHTML
+            } else {
+                var id = e.target.id;
+                var name = e.target.querySelector('.title-wrapper').innerHTML;
+            }
             console.log(e.target);
             console.log(e.target.parentElement.className);
-            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}`,
+            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}&name=${name}`,
             {
                 method: 'POST'
             }).then(response => response.json())
             .then(data => console.log(data));
         });
-        fetch(`https://mikoshibot.ru/scenarios`)
-        .then(response => response.json())
-        .then(data => addScenarios(data));
+
         $(".title-wrapper").each(function(){
             console.log($(this));
             if ($(this).html().length > 45) overflown.push($(this))
