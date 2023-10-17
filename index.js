@@ -128,18 +128,13 @@ $(document).ready(function() {
             e.target.parentElement.className == 'item')
             {
                 var id = e.target.parentElement.id;
-                var name = e.target.parentElement.querySelector('.title-wrapper').innerHTML
-            } else {
-                var id = e.target.id;
-                var name = e.target.querySelector('.title-wrapper').innerHTML;
-            }
+            } else var id = e.target.id;
             console.log(e.target);
             console.log(e.target.parentElement.className);
-            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}&name=${name}`,
+            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}`,
             {
                 method: 'POST'
-            }).then(response => response.json())
-            .then(data => console.log(data));
+            }).then(data => console.log(data));
         });
 
         $(".title-wrapper").each(function(){
