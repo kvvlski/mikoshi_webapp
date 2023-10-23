@@ -7,7 +7,10 @@ setThemeClass();
 var lc = {
     'ru': {
         newCharacter: 'Новый персонаж',
-        temperature: 'Креативность'
+        temperature: 'Креативность',
+        speed: 'Скорость озвучки',
+        memory: 'Память',
+        erase: 'Очистить'
     }
 };
 
@@ -89,6 +92,12 @@ $(document).on('keypress',function(e) {
     }
 });
 
+function roundFix(number, precision)
+{
+    var multi = Math.pow(10, precision);
+    return Math.round( (number * multi).toFixed(precision + 1) ) / multi;
+}
+
 var pshown = false;
 var overflown = [];
 $(document).ready(function() {
@@ -101,11 +110,24 @@ $(document).ready(function() {
         })
         pshown = !pshown;
     })
-    
+
+    $('#erase').on('click', function() {
+        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=history&value=[]`,
+        {method: 'POST'});  
+    })
 
     $('#temp').on('change', function() {
         var val = $(this).val() / 100;
+        $(this).prev().text(`${roundFix(val, 2)*100}%`)
         fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=temperature&value=${val}`,
+        {method: 'POST'});
+    })
+
+
+    $('#speed').on('change', function() {
+        var val = $(this).val() / 100;
+        $(this).prev().text(`${roundFix(val, 2)*100}%`)
+        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=sk_speed&value=${val}`,
         {method: 'POST'});
     })
 
@@ -123,6 +145,29 @@ $(document).ready(function() {
         var lang = WebApp.initDataUnsafe.user.language_code;
         if (lang) $('.footer-button').text(lc[lang].newCharacter);
         if (lang) $('#ptemp').text(lc[lang].temperature);
+        if (lang) $('#pspeed').text(lc[lang].speed);
+        if (lang) $('#pmemory').text(lc[lang].memory);
+        if (lang) $('#erase').val(lc[lang].erase);
+        
+        var val;
+        function setslider(selector, value) {
+            $(selector).val(value);
+        }
+
+        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=temperature`)
+        .then(resp => resp.json())
+        .then(data => {
+            $('#ptemp').next().text(`${data.temperature*100}%`);
+            $('#temp').val(data.temperature*100);
+        })
+
+        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=sk_speed`)
+        .then(resp => resp.json())
+        .then(data => {
+            $('#pspeed').next().text(`${data.sk_speed*100}%`);
+            $('#speed').val(data.sk_speed*100);
+        })
+
         $(document).on('click', '.item', function(e) {
             if (e.target.parentElement && 
             e.target.parentElement.className == 'item')

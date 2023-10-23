@@ -32,12 +32,16 @@
     <div class="grid"></div>
     <div id="popup">
         <div class="ppel">
-            <p id="ptemp">Temperature</p>
+            <p id="ptemp" class="eltitle">Temperature</p><p class="val"></p>
             <input type="range" min="0" max="100" value="70" class="slider" id="temp">
         </div>
         <div class="ppel">
-            <p id="perase">Erase memory</p>
-            <input type="button" class="ibtn" id="erase"> 
+            <p id="pspeed" class="eltitle">Speed</p><p class="val"></p>
+            <input type="range" min="10" max="300" value="100" class="slider" id="speed">
+        </div>
+        <div class="ppel">
+            <p id="pmemory" class="eltitle">Memory</p>
+            <input type="button" class="button" id="erase" value="Erase">
         </div>
     </div>
     <div id="footer">

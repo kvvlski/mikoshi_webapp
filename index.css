@@ -47,8 +47,9 @@ a {
     transition: 0.3s;
 }
 
-.item:hover {
+.item:active {
     border-color: var(--tg-theme-button-color-lighter);
+    background-color: var(--tg-theme-button-color-lighter);
     transition: 0.3s;
 }
 
@@ -74,18 +75,6 @@ a {
     white-space: nowrap;
     text-align: center;
     transition: 0.3s;
-}
-
-@keyframes fade_in_show {
-    0% {
-         opacity: 1;
-         transform: scale(1)
-    }
-
-    100% {
-         opacity: 0;
-         transform: scale(0)
-    }
 }
 
 .item {
@@ -309,12 +298,20 @@ input:focus ~ .input-border {
 .footer-button:hover {
     background-color: var(--tg-theme-button-color-lighter);
 }
-  
+ 
 .ppel {
     align-items: center;
-    display: inline-flex;
+    display: inline-block;
     width: 100%;
     padding: .5em;
+}
+.eltitle, .val {
+    width: auto;
+    display: inline-flex;
+    margin-right: 1em;
+}
+.val {
+    color: gray;
 }
 .slidecontainer p {
     padding: .5em;
@@ -323,9 +320,13 @@ input:focus ~ .input-border {
     width: 98%;
 } 
 #popup {
+    padding: 1em 0;
     z-index: 1;
     background-color: var(--bg-color);
     display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
     position: fixed;
