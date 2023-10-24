@@ -10,7 +10,9 @@ var lc = {
         temperature: 'Креативность',
         speed: 'Скорость озвучки',
         memory: 'Память',
-        erase: 'Очистить'
+        erase: 'Очистить',
+        news: 'Источники AI новостей',
+        newsdesc: 'Вставьте ссылки на любимые каналы, через пробел'
     }
 };
 
@@ -131,6 +133,12 @@ $(document).ready(function() {
         {method: 'POST'});
     })
 
+    $('#news').on('change', function() {
+        var val = $(this).val();
+        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=newsChannels&value=${val}`,
+        {method: 'POST'});
+    })
+
     var WebApp = window.Telegram.WebApp;
     if (WebApp.initDataUnsafe.hasOwnProperty('user'))
     {
@@ -148,12 +156,9 @@ $(document).ready(function() {
         if (lang) $('#pspeed').text(lc[lang].speed);
         if (lang) $('#pmemory').text(lc[lang].memory);
         if (lang) $('#erase').val(lc[lang].erase);
+        if (lang) $('#pnews').text(lc[lang].news);
+        if (lang) $('#newsdesc').text(lc[lang].newsdesc);
         
-        var val;
-        function setslider(selector, value) {
-            $(selector).val(value);
-        }
-
         fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=temperature`)
         .then(resp => resp.json())
         .then(data => {
@@ -166,6 +171,12 @@ $(document).ready(function() {
         .then(data => {
             $('#pspeed').next().text(`${data.sk_speed*100}%`);
             $('#speed').val(data.sk_speed*100);
+        })
+
+        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=newsChannels`)
+        .then(resp => resp.json())
+        .then(data => {
+            $('#news').val(data.newsChannels);
         })
 
         $(document).on('click', '.item', function(e) {
