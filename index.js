@@ -12,7 +12,8 @@ var lc = {
         memory: 'Память',
         erase: 'Очистить',
         news: 'Источники AI новостей',
-        newsdesc: 'Вставьте ссылки на любимые каналы, через пробел'
+        newsdesc: 'Вставьте ссылки на любимые каналы, через пробел',
+        picked: 'Персонаж выбран!'
     }
 };
 
@@ -158,7 +159,8 @@ $(document).ready(function() {
         if (lang) $('#erase').val(lc[lang].erase);
         if (lang) $('#pnews').text(lc[lang].news);
         if (lang) $('#newsdesc').text(lc[lang].newsdesc);
-        
+        if (lang) $('#fadeInOutText').text(lc[lang].picked);
+
         fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=temperature`)
         .then(resp => resp.json())
         .then(data => {
@@ -179,7 +181,10 @@ $(document).ready(function() {
             $('#news').val(data.newsChannels);
         })
 
+        var tid;
+
         $(document).on('click', '.item', function(e) {
+            clearTimeout(tid);
             if (e.target.parentElement && 
             e.target.parentElement.className == 'item')
             {
@@ -191,6 +196,10 @@ $(document).ready(function() {
             {
                 method: 'POST'
             }).then(data => console.log(data));
+            $('#fadeInOutText').css('opacity', 0.9);
+            tid = setTimeout(function() {
+                $('#fadeInOutText').css('opacity', 0);
+            }, 2000);
         });
 
         $(".title-wrapper").each(function(){
