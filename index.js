@@ -30,18 +30,10 @@ function addReplicas(replicas) {
                 content = element.comment
 
             var id = element.id || key;
-            var image = element.image || ''
 
-            if (image) image = `<img src=${image}/>`
-
-            $('.grid').prepend(`
-            <div id="${id}" class="item">
-                <div class="title-wrapper">
-                    ${element.shortName}
-                </div>${image}
-                <div class="content">
-                    ${content}
-                </div>
+            $('.list').prepend(`
+            <div id="${id}" class="listitem">
+                ${element.shortName}
             </div>
             `)
         }
@@ -53,16 +45,18 @@ function addScenarios() {
         for (const key in data) {
             if (Object.hasOwnProperty.call(data, key)) {
                 const element = data[key];
+                var voiceicon = '';
+                if (element.voice) voiceicon = '<img class="voice-icon" src="mic.png">'
                 $('.gallery').prepend(`
                 <div id="-${key}" class="item">
                     <div class="title-wrapper">
                         ${element.name}
                     </div>
-                    <img src=${element.image}>
+                    <img class="bgimg" src=${element.image}>
                     <div class="content">
                         ${element.comment}
                     </div>
-                    </div>
+                </div>
                 `)
             }
         }
@@ -183,16 +177,15 @@ $(document).ready(function() {
 
         var tid;
 
-        $(document).on('click', '.item', function(e) {
+        function sel(e) {
             clearTimeout(tid);
-            if (e.target.parentElement && 
-            e.target.parentElement.className == 'item')
-            {
-                var id = e.target.parentElement.id;
-            } else var id = e.target.id;
-            console.log(e.target);
-            console.log(e.target.parentElement.className);
-            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}`,
+            var id = e.target.id;
+            if (e.target.className == 'item') {
+                var name = e.target.querySelector('.title-wrapper').innerHTML    
+            } else if (e.target.className == 'listitem') {
+                var name = e.target.innerHTML;
+            }
+            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}&name=${name}`,
             {
                 method: 'POST'
             }).then(data => console.log(data));
@@ -200,7 +193,10 @@ $(document).ready(function() {
             tid = setTimeout(function() {
                 $('#fadeInOutText').css('opacity', 0);
             }, 2000);
-        });
+        }
+
+        $(document).on('click', '.item', sel);
+        $(document).on('click', '.listitem', sel);
 
         $(".title-wrapper").each(function(){
             console.log($(this));
