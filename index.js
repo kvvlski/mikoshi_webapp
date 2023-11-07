@@ -95,6 +95,7 @@ function roundFix(number, precision)
     return Math.round( (number * multi).toFixed(precision + 1) ) / multi;
 }
 
+var test;
 var pshown = false;
 var overflown = [];
 $(document).ready(function() {
@@ -174,16 +175,18 @@ $(document).ready(function() {
         .then(data => {
             $('#news').val(data.newsChannels);
         })
-
         var tid;
-
         function sel(e) {
             clearTimeout(tid);
-            var id = e.target.id;
-            if (e.target.className == 'item') {
-                var name = e.target.querySelector('.title-wrapper').innerHTML    
-            } else if (e.target.className == 'listitem') {
-                var name = e.target.innerHTML;
+            var target = e.target;
+            if (target === undefined) target = e;
+            var id = target.id;
+            if (target.className == 'item') {
+                var name = target.querySelector('.title-wrapper').innerHTML    
+            } else if (target.className == 'listitem') {
+                var name = target.innerHTML;
+            } else {
+                return sel(target.parentElement);
             }
             fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}&name=${name}`,
             {
@@ -195,6 +198,7 @@ $(document).ready(function() {
             }, 2000);
         }
 
+        $(document).on('click', '.title-wrapper, .bgimg, .content', function(e) {sel(e.target.parentElement); e.stopPropagation()})
         $(document).on('click', '.item', sel);
         $(document).on('click', '.listitem', sel);
 
