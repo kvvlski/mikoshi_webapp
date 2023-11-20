@@ -4,8 +4,8 @@ document.documentElement.className = Telegram.WebApp.colorScheme;
 Telegram.WebApp.onEvent('themeChanged', setThemeClass);
 setThemeClass();
 
-// var api = 'https://mikoshibot.ru'
-var api = 'http://localhost:8080'
+var api = 'https://mikoshibot.ru'
+// var api = 'http://localhost:8080'
 
 var lc = {
     'ru': {
