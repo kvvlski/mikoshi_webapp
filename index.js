@@ -4,6 +4,9 @@ document.documentElement.className = Telegram.WebApp.colorScheme;
 Telegram.WebApp.onEvent('themeChanged', setThemeClass);
 setThemeClass();
 
+// var api = 'https://mikoshibot.ru'
+var api = 'http://localhost:8080'
+
 var lc = {
     'ru': {
         newCharacter: 'Новый персонаж',
@@ -41,13 +44,13 @@ function addReplicas(replicas) {
 }
 
 function addScenarios() {
-    fetch(`https://mikoshibot.ru/scenarios`).then(response => response.json()).then(data => {
+    fetch(`${api}/scenarios`, {method: 'GET'}).then(response => response.json()).then(data => {
         for (const key in data) {
             if (Object.hasOwnProperty.call(data, key)) {
                 const element = data[key];
                 var voiceicon = '';
                 if (element.voice) voiceicon = '<img class="voice-icon" src="mic.png">'
-                $('.gallery').prepend(`
+                $('.gallery').append(`
                 <div id="-${key}" class="item">
                     <div class="title-wrapper">
                         ${element.name}
@@ -68,7 +71,7 @@ function newCharacter() {
     if (text == null || text == "") {
         return;
     }
-    fetch(`https://mikoshibot.ru/replicas?userid=${uid}&name=${text}`,
+    fetch(`${api}/replicas?userid=${uid}&name=${text}`,
     {
         method: 'POST'
     }).then(response =>
@@ -110,14 +113,14 @@ $(document).ready(function() {
     })
 
     $('#erase').on('click', function() {
-        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=history&value=[]`,
+        fetch(`${api}/settings?userid=${uid}&key=history&value=[]`,
         {method: 'POST'});  
     })
 
     $('#temp').on('change', function() {
         var val = $(this).val() / 100;
         $(this).prev().text(`${roundFix(val, 2)*100}%`)
-        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=temperature&value=${val}`,
+        fetch(`${api}/settings?userid=${uid}&key=temperature&value=${val}`,
         {method: 'POST'});
     })
 
@@ -125,13 +128,13 @@ $(document).ready(function() {
     $('#speed').on('change', function() {
         var val = $(this).val() / 100;
         $(this).prev().text(`${roundFix(val, 2)*100}%`)
-        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=sk_speed&value=${val}`,
+        fetch(`${api}/settings?userid=${uid}&key=sk_speed&value=${val}`,
         {method: 'POST'});
     })
 
     $('#news').on('change', function() {
         var val = $(this).val();
-        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=newsChannels&value=${val}`,
+        fetch(`${api}/settings?userid=${uid}&key=newsChannels&value=${val}`,
         {method: 'POST'});
     })
 
@@ -139,7 +142,7 @@ $(document).ready(function() {
     if (WebApp.initDataUnsafe.hasOwnProperty('user'))
     {
         uid = WebApp.initDataUnsafe.user.id;
-        fetch(`https://mikoshibot.ru/replicas?userid=${uid}`)
+        fetch(`${api}/replicas?userid=${uid}`)
             .then(data => data.json())
             .then(json => {
                 addReplicas(json.replicas);
@@ -156,21 +159,21 @@ $(document).ready(function() {
         if (lang) $('#newsdesc').text(lc[lang].newsdesc);
         if (lang) $('#fadeInOutText').text(lc[lang].picked);
 
-        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=temperature`)
+        fetch(`${api}/settings?userid=${uid}&key=temperature`)
         .then(resp => resp.json())
         .then(data => {
             $('#ptemp').next().text(`${data.temperature*100}%`);
             $('#temp').val(data.temperature*100);
         })
 
-        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=sk_speed`)
+        fetch(`${api}/settings?userid=${uid}&key=sk_speed`)
         .then(resp => resp.json())
         .then(data => {
             $('#pspeed').next().text(`${data.sk_speed*100}%`);
             $('#speed').val(data.sk_speed*100);
         })
 
-        fetch(`https://mikoshibot.ru/settings?userid=${uid}&key=newsChannels`)
+        fetch(`${api}/settings?userid=${uid}&key=newsChannels`)
         .then(resp => resp.json())
         .then(data => {
             $('#news').val(data.newsChannels);
@@ -188,7 +191,7 @@ $(document).ready(function() {
             } else {
                 return sel(target.parentElement);
             }
-            fetch(`https://mikoshibot.ru/select?userid=${uid}&id=${id}&name=${name}`,
+            fetch(`${api}/select?userid=${uid}&id=${id}&name=${name}`,
             {
                 method: 'POST'
             }).then(data => console.log(data));

@@ -40,6 +40,7 @@ a {
 }
 
 .item {
+    width: 95%;
     border: var(--tg-theme-button-color-darker) solid 0.1em;
     border-radius: 0.3em;
     height: 25vh;
