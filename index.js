@@ -10,8 +10,8 @@ var api = 'https://mikoshibot.ru'
 var lc = {
     'ru': {
         newCharacter: 'Новый персонаж',
-        temperature: 'Креативность',
-        speed: 'Скорость озвучки',
+        temperature: 'Креативность GPT',
+        speed: 'Скорость озвучки Яндекс',
         memory: 'Память',
         erase: 'Очистить',
         news: 'Источники AI новостей',
