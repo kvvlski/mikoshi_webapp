@@ -36,7 +36,7 @@ function addReplicas(replicas) {
 
             $('.list').prepend(`
             <div id="${id}" class="listitem">
-                ${element.shortName}
+                ${element.shortName || element.short_name}
             </div>
             `)
         }
