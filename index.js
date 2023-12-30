@@ -75,6 +75,7 @@ function newCharacter() {
     )
     // addReplicas([]);
     $.modal.close();
+    setTimeout(WebApp.close(), 1000)
     return text;
 }
 
@@ -174,34 +175,70 @@ $(document).ready(function() {
         })
         var tid;
         function sel(e) {
+            fetch(`${api}/select?userid=${uid}&id=${id}`,
+            {
+                method: 'POST'
+            }).then(data => console.log(data)); 
+        }
+
+        $(document).on('click', '.title-wrapper, .bgimg, .content', function(e) {
             clearTimeout(tid);
-            var target = e.target;
-            if (target === undefined) target = e;
+
+            var target = e.target.parentElement;
             var id = target.id;
-            if (target.className == 'item') {
-                var name = target.querySelector('.title-wrapper').innerHTML
-                fetch(`${api}/select?userid=${uid}&id=${id}&name=${name}`,
-                {
-                    method: 'POST'
-                }).then(data => console.log(data)); 
-            } else if (target.className == 'listitem') {
-                fetch(`${api}/select?userid=${uid}&id=${id}`,
-                {
-                    method: 'POST'
-                }).then(data => console.log(data)); 
-            } else {
-                return sel(target.parentElement);
-            }
+            var name = target.querySelector('.title-wrapper').innerHTML
+            fetch(`${api}/select?userid=${uid}&id=${id}&name=${name}`,
+            {
+                method: 'POST'
+            }).then(data => console.log(data));
 
             $('#fadeInOutText').css('opacity', 0.9);
             tid = setTimeout(function() {
                 $('#fadeInOutText').css('opacity', 0);
             }, 2000);
-        }
 
-        $(document).on('click', '.title-wrapper, .bgimg, .content', function(e) {sel(e.target.parentElement); e.stopPropagation()})
-        $(document).on('click', '.item', sel);
-        $(document).on('click', '.listitem', sel);
+            e.stopPropagation()
+            setTimeout(WebApp.close(), 1000)
+        })
+        $(document).on('click', '.item', function(e) {
+            clearTimeout(tid);
+
+            var target = e.target;
+            var id = target.id;
+            var name = target.querySelector('.title-wrapper').innerHTML
+            fetch(`${api}/select?userid=${uid}&id=${id}&name=${name}`,
+            {
+                method: 'POST'
+            }).then(data => console.log(data));
+
+            $('#fadeInOutText').css('opacity', 0.9);
+            tid = setTimeout(function() {
+                $('#fadeInOutText').css('opacity', 0);
+            }, 2000);
+            
+            e.stopPropagation()
+            setTimeout(WebApp.close(), 1000)
+
+        });
+        $(document).on('click', '.listitem', function(e) {
+            clearTimeout(tid);
+
+            var target = e.target;
+            var id = target.id;
+            fetch(`${api}/select?userid=${uid}&id=${id}`,
+            {
+                method: 'POST'
+            }).then(data => console.log(data));
+
+            $('#fadeInOutText').css('opacity', 0.9);
+            tid = setTimeout(function() {
+                $('#fadeInOutText').css('opacity', 0);
+            }, 2000);
+            
+            e.stopPropagation()
+            setTimeout(WebApp.close(), 1000)
+
+        })
 
         $(".title-wrapper").each(function(){
             console.log($(this));
