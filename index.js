@@ -26,17 +26,11 @@ function addReplicas(replicas) {
         {
             const element = replicas[key];
 
-            var content = "-"
-            if (element.history.length > 0)
-                content = element.history.slice(-1)['content']
-            else if (element.comment !== '')
-                content = element.comment
-
             var id = element.id || key;
 
             $('.list').prepend(`
             <div id="${id}" class="listitem">
-                ${element.shortName || element.short_name}
+                ${element.shortName}
             </div>
             `)
         }
@@ -185,16 +179,20 @@ $(document).ready(function() {
             if (target === undefined) target = e;
             var id = target.id;
             if (target.className == 'item') {
-                var name = target.querySelector('.title-wrapper').innerHTML    
+                var name = target.querySelector('.title-wrapper').innerHTML
+                fetch(`${api}/select?userid=${uid}&id=${id}&name=${name}`,
+                {
+                    method: 'POST'
+                }).then(data => console.log(data)); 
             } else if (target.className == 'listitem') {
-                var name = target.innerHTML;
+                fetch(`${api}/select?userid=${uid}&id=${id}`,
+                {
+                    method: 'POST'
+                }).then(data => console.log(data)); 
             } else {
                 return sel(target.parentElement);
             }
-            fetch(`${api}/select?userid=${uid}&id=${id}&name=${name}`,
-            {
-                method: 'POST'
-            }).then(data => console.log(data));
+
             $('#fadeInOutText').css('opacity', 0.9);
             tid = setTimeout(function() {
                 $('#fadeInOutText').css('opacity', 0);
